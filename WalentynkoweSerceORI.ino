@@ -20,9 +20,9 @@ void setup() {
 
   strip.setBrightness(255);
 
-  colorWipe(strip.Color(255, 0, 0), 30);  // Red
-  colorWipe(strip.Color(0, 255, 0), 30);  // Green
-  colorWipe(strip.Color(0, 0, 255), 30);  // Blue
+  colorWipe(strip.Color(255, 0, 0), 30);
+  colorWipe(strip.Color(0, 255, 0), 30);
+  colorWipe(strip.Color(0, 0, 255), 30);
 
   for (int p = 0; p <= 4; p++) {
     RndX(randomValue1, randomValue2, randomValue3);
@@ -135,7 +135,7 @@ uint32_t Wheel(byte WheelPos) {
 }
 void rainbowCycleReverse(uint8_t wait) {
   uint16_t i, j;
-  for (j = 0; j < 256 * 5; j++) {  // 5 cykli przez wszystkie kolory koła
+  for (j = 0; j < 256 * 5; j++) { 
     for (i = 0; i < strip.numPixels(); i++) {
       strip.setPixelColor(i, Wheel(((i * 256 / strip.numPixels()) - j) & 255));
     }
@@ -162,7 +162,7 @@ void gradientEffect(uint32_t colorStart, uint32_t colorEnd, uint8_t del, int wai
     uint8_t b = bStart + (((int)bEnd - bStart) * ratio) / 255;
 
     // Rozjaśnianie diody od 0 do 255
-    for (int brightness = 0; brightness <= 255; brightness += 5) {  // Co 5 dla płynniejszego efektu
+    for (int brightness = 0; brightness <= 255; brightness += 5) {
       uint8_t rScaled = (r * brightness) / 255;
       uint8_t gScaled = (g * brightness) / 255;
       uint8_t bScaled = (b * brightness) / 255;
@@ -173,21 +173,21 @@ void gradientEffect(uint32_t colorStart, uint32_t colorEnd, uint8_t del, int wai
     }
   }
 
-  delay(wait);  // Czekaj po zapaleniu wszystkich
+  delay(wait);
 }
 
 void theaterChase(uint32_t c, uint8_t wait) {
-  for (int j = 0; j < 10; j++) {  //do 10 cycles of chasing
+  for (int j = 0; j < 10; j++) {
     for (int q = 0; q < 3; q++) {
       for (uint16_t i = 0; i < strip.numPixels(); i = i + 3) {
-        strip.setPixelColor(i + q, c);  //turn every third pixel on
+        strip.setPixelColor(i + q, c);
       }
       strip.show();
 
       delay(wait);
 
       for (uint16_t i = 0; i < strip.numPixels(); i = i + 3) {
-        strip.setPixelColor(i + q, 0);  //turn every third pixel off
+        strip.setPixelColor(i + q, 0); 
       }
     }
   }
@@ -201,14 +201,12 @@ void ledChaser(uint8_t wait, int rep) {
   delay(wait);
 
   for (int l = 0; l <= rep; l++) {
-    // Przesuwamy zapalenie od drugiej diody do ostatniej
     for (uint16_t i = 1; i < numLeds; i++) {
-      strip.setPixelColor(i, randomValue2);  // Zapalamy bieżący LED
-      strip.setPixelColor(i - 1, 0);         // Gasimy poprzedni LED
+      strip.setPixelColor(i, randomValue2); 
+      strip.setPixelColor(i - 1, 0); 
       strip.show();
       delay(wait);
     }
-    // Na końcu wyłączamy ostatni LED
     strip.setPixelColor(numLeds - 1, 0);
     strip.show();
     delay(wait);
@@ -233,10 +231,10 @@ void ledChaserReverse(uint8_t wait, int rep) {
   }
 }
 void theaterChaseRainbow(uint8_t wait) {
-  for (int j = 0; j < 256; j++) {  // cycle all 256 colors in the wheel
+  for (int j = 0; j < 256; j++) {
     for (int q = 0; q < 3; q++) {
       for (uint16_t i = 0; i < strip.numPixels(); i = i + 3) {
-        strip.setPixelColor(i + q, Wheel((i + j) % 255));  //turn every third pixel on
+        strip.setPixelColor(i + q, Wheel((i + j) % 255));
       }
       strip.show();
 
